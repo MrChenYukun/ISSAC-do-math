@@ -1,0 +1,10 @@
+1. pause
+2. add
+3. skip problem
+4. check?
+5. exit
+6. bgm
+7. beautiful button
+8. timer
+9. save&load
+10. report
