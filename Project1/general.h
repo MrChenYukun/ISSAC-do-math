@@ -4,13 +4,29 @@
 #define MENU_WIDTH 160
 const int scale = (WIDTH - MENU_WIDTH) * (HEIGHT) / (480 * 270);
 
+#define SEPERATE 20
 #define SHOWNAME_X (WIDTH - (MENU_WIDTH / 2)-(MENU_WIDTH)/4)
-#define SHOWNAME_Y HEIGHT / 3 + 10
+#define SHOWNAME_Y HEIGHT / 3*2 + SEPERATE*1-10 
 #define SHOWNAME_SPERATE 50
 #define SHOWSCORE_X (WIDTH - (MENU_WIDTH / 2)-(MENU_WIDTH)/4)
-#define SHOWSCORE_Y HEIGHT / 3 + 30
+#define SHOWSCORE_Y HEIGHT / 3*2 + SEPERATE*2-10
 #define SHOWMATH_X (WIDTH - (MENU_WIDTH / 2)-(MENU_WIDTH)/4)
-#define SHOWMATH_Y HEIGHT / 3 + 50
+#define SHOWMATH_Y HEIGHT / 3*2 + SEPERATE*3-10
+
+#define SEPERATE_SETTING 50
+#define SETTING_X (WIDTH - (MENU_WIDTH / 2)-(MENU_WIDTH)/4)
+#define SETTING_Y HEIGHT / 20
+#define BOX_X 80
+#define BOX_Y 40
+const char options[6][20] =
+{
+	"暂停",
+	"增加",
+	"减少",
+	"跳过",
+	"查看",
+	"退出"
+};
 
 #define BACKGROUNDCOLOR BLACK
 #define LINECOLOR WHITE
@@ -31,7 +47,7 @@ const int scale = (WIDTH - MENU_WIDTH) * (HEIGHT) / (480 * 270);
 #define ISAAC_SIZE 32
 
 #define APPLE_SPEED 1
-#define APPLE_SPAWN_RATE 10 //苹果生成速率，越高越慢
+int APPLE_SPAWN_RATE=5; //苹果生成速率，越高越慢
 #define APPLE_MAX 50
 #define APPLE_SIZE 32
 #define VALUE_MAX 10
