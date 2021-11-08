@@ -13,6 +13,7 @@ typedef struct {
 
 void init(USER& user)
 {
+	rectangle(WIDTH - MENU_WIDTH + 2, 1, WIDTH - 2, HEIGHT - 2);
 	outtextxy(SHOWNAME_X, SHOWNAME_Y, "Name ");
 	outtextxy(SHOWNAME_X+SHOWNAME_SPERATE, SHOWNAME_Y, user.name);
 

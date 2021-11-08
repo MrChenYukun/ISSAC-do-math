@@ -16,6 +16,9 @@
     <Filter Include="源文件\image">
       <UniqueIdentifier>{725911df-959e-4488-96db-e0634a822801}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\sounds">
+      <UniqueIdentifier>{bc90c0b1-b13d-4139-8828-cb9c3a00cff3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="源.cpp">
@@ -58,5 +61,10 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="todolist.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="sound\angel.wav">
+      <Filter>源文件\sounds</Filter>
+    </Media>
   </ItemGroup>
 </Project>

@@ -21,6 +21,7 @@ const int scale = (WIDTH - MENU_WIDTH) * (HEIGHT) / (480 * 270);
 #define CHARACTER_PATH_B "image\\character_001_isaac_b.png" 
 #define CHARACTER_REVERSE_PATH_B "image\\character_001_isaac_reverse_b.png" 
 #define APPLE_DROP_PATH "image\\apple.png" 
+#define BGM_PATH "sounds\\angel.wav"
 
 #define PLAYER_FIX 23//头身偏差修正
 #define SPEED 12//刷新速度

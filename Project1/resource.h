@@ -18,6 +18,20 @@ struct math
 	int ans;
 	char ope;
 };
+//reading
+IMAGE background;
+IMAGE character[2];
+IMAGE character_head[3];//0 is normal, 1 right, 2 left
+IMAGE move_normal;
+IMAGE move_right[10];
+IMAGE move_left[10];
+//·´Í¼
+IMAGE character_b[2];
+IMAGE character_head_b[3];//0 is normal, 1 right, 2 left
+IMAGE move_normal_b;
+IMAGE move_right_b[10];
+IMAGE move_left_b[10];
+IMAGE apple_drop;
 
 void reading_resource(IMAGE* apple_drop,IMAGE *background, IMAGE *character, IMAGE *character_head, IMAGE *move_normal, IMAGE *move_right, IMAGE *move_left, IMAGE *character_b, IMAGE *character_head_b, IMAGE *move_normal_b, IMAGE* move_right_b, IMAGE* move_left_b)
 {
@@ -107,8 +121,8 @@ void generate_math(math* m)
 	int t;
 	do
 	{
-		m->factor1 = rand() % 10;
-		m->factor2 = rand() % 10;
+		m->factor1 = rand() % VALUE_MAX;
+		m->factor2 = rand() % VALUE_MAX;
 		t = rand() % 5;
 		if (!(m->factor2 == 0 && t == 3) && !(m->factor2 == 0 && t == 4))
 		{
@@ -122,7 +136,7 @@ void generate_math(math* m)
 			}
 		}
 		else continue;
-	} while (m->ans < 0 || m->ans > 9);
+	} while (m->ans < 0 || m->ans >= VALUE_MAX);
 
 }
 void show_problem(math problem)
@@ -139,4 +153,26 @@ void show_problem(math problem)
 	outtextxy(SHOWMATH_X + 20 * 4, SHOWMATH_Y + 20, "?");
 	//sprintf_s(buf, "%d", problem.ans);
 	//outtextxy(SHOWMATH_X + 20 * 4, SHOWMATH_Y + 20, buf);
+}
+void draw_issac(int *current_location,int *cnt,int state)
+{
+	if (state == 0)//stay still
+	{
+		putimage((*current_location)*scale, HEIGHT - (1 * ISAAC_SIZE + PLAYER_LOC) * scale, &move_normal, SRCINVERT);
+		putimage((*current_location)*scale, HEIGHT - (2 * ISAAC_SIZE - PLAYER_FIX + PLAYER_LOC) * scale, &character_head[0], SRCINVERT);
+	}
+	else if (state == 1)//move right
+	{
+		putimage((*current_location)*scale, HEIGHT - (1 * ISAAC_SIZE + PLAYER_LOC) * scale, &move_right[*cnt / MOVE_RATE], SRCINVERT);
+		putimage((*current_location)*scale, HEIGHT - (2 * ISAAC_SIZE - PLAYER_FIX + PLAYER_LOC) * scale, &character_head[1], SRCINVERT);
+		*cnt = (*cnt + 1) % (MOVE_RATE * 10 + 1);
+		*current_location += (MOVE_SPEED);
+	}
+	else if (state == 2)//move left
+	{
+		putimage((*current_location)*scale, HEIGHT - (1 * ISAAC_SIZE + PLAYER_LOC) * scale, &move_left[*cnt / MOVE_RATE], SRCINVERT);
+		putimage((*current_location)*scale, HEIGHT - (2 * ISAAC_SIZE - PLAYER_FIX + PLAYER_LOC) * scale, &character_head[2], SRCINVERT);
+		*cnt = (*cnt + 1) % (MOVE_RATE * 10 + 1);
+		*current_location -= (MOVE_SPEED);
+	}
 }

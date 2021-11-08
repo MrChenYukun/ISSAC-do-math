@@ -3,24 +3,14 @@
 #include"menu.h"
 #include"resource.h"
 #include<time.h>
+#include <stdlib.h>
+#include <windows.h>
+#include <mmsystem.h>//导入声音头文件
+#pragma comment(lib,"Winmm.lib")
+
 
 int main()
 {
-	//reading
-	IMAGE background;
-	IMAGE character[2];
-	IMAGE character_head[3];//0 is normal, 1 right, 2 left
-	IMAGE move_normal;
-	IMAGE move_right[10];
-	IMAGE move_left[10];
-	//反图
-	IMAGE character_b[2];
-	IMAGE character_head_b[3];//0 is normal, 1 right, 2 left
-	IMAGE move_normal_b;
-	IMAGE move_right_b[10];
-	IMAGE move_left_b[10];
-	IMAGE apple_drop;
-	
 	reading_resource(&apple_drop,&background,character,character_head,&move_normal,move_right,move_left,character_b, character_head_b, &move_normal_b, move_right_b, move_left_b);
 
 	//init
@@ -52,11 +42,12 @@ int main()
 	generate_math(&problem);
 	show_problem(problem);
 
+	PlaySound(BGM_PATH, NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 	while (true)
 	{	
 		//creat_apple
 		timer=(timer+1)%APPLE_SPAWN_RATE;
-		if (apple_num<APPLE_MAX&&!(timer) % APPLE_SPAWN_RATE) 
+		if (apple_num<APPLE_MAX&&((timer) % APPLE_SPAWN_RATE)==0) 
 		{
 			apple *obj = new apple;
 			obj->next = &end;
@@ -72,34 +63,9 @@ int main()
 		state = key_control(&k,state,&current_location);
 
 		BeginBatchDraw();
-		//drawbasic
+	
 		putimage(0, 0, &background);
-		//printf("%s", user.name);
-		sprintf_s(buf, "%d", user.score);
-		outtextxy(SHOWSCORE_X + SHOWNAME_SPERATE, SHOWSCORE_Y, buf);
-		
-
-		//draw_issac
-		if (state == 0)//stay still
-		{
-			putimage((current_location)*scale, HEIGHT - (1 * ISAAC_SIZE+PLAYER_LOC) * scale, &move_normal, SRCINVERT);
-			putimage((current_location)*scale, HEIGHT - ( 2 * ISAAC_SIZE - PLAYER_FIX+ PLAYER_LOC) * scale, &character_head[0], SRCINVERT);
-		}
-		else if (state == 1)//move right
-		{
-			putimage((current_location) * scale, HEIGHT - (1 * ISAAC_SIZE + PLAYER_LOC) * scale, &move_right[cnt/ MOVE_RATE], SRCINVERT);
-			putimage((current_location)*scale, HEIGHT - (2 * ISAAC_SIZE - PLAYER_FIX + PLAYER_LOC) * scale, &character_head[1], SRCINVERT);
-			cnt = (cnt + 1) % (MOVE_RATE * 10 + 1);
-			current_location += (MOVE_SPEED);
-		}
-		else if (state == 2)//move left
-		{
-			putimage((current_location) * scale, HEIGHT - (1 * ISAAC_SIZE + PLAYER_LOC) * scale, &move_left[cnt/ MOVE_RATE], SRCINVERT);
-			putimage((current_location)*scale, HEIGHT - (2 * ISAAC_SIZE - PLAYER_FIX + PLAYER_LOC) * scale, &character_head[2], SRCINVERT);
-			cnt = (cnt + 1) % (MOVE_RATE * 10 + 1);
-			current_location -= (MOVE_SPEED);
-		}
-
+		draw_issac(&current_location,&cnt,state);
 
 		//draw apple
 		cur = first.next;

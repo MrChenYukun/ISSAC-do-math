@@ -158,6 +158,9 @@
   <ItemGroup>
     <Text Include="todolist.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="sound\angel.wav" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
